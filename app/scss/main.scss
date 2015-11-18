@@ -1,0 +1,10 @@
+@import 'color-mappings';
+@import 'foundation';
+
+// Pages
+@import '../pages/Index/Index';
+
+// Components
+@import '../components/Header/Header';
+@import '../components/Footer/Footer';
+@import '../components/LoadingWave/LoadingWave';

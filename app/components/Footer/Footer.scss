@@ -1,0 +1,13 @@
+footer {
+  width: 100%;
+  min-height: 100px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: $c-charcoal;
+  bottom: 0;
+  height: auto;
+  .footer-text {
+    font-size: 9px;
+    color: $c-white;
+  }
+}

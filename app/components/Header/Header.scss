@@ -1,0 +1,24 @@
+.header-component-container {
+  height: 45px; width: 100%;
+  background-color: $c-charcoal;
+  color: $c-white;
+  font-size: 20px;
+  .header-row {
+    padding-top: 7px;
+    .header-link, .header-title {
+      color: inherit;
+      cursor: pointer;
+      &:hover {
+        color: $c-main-blue;
+      }
+    }
+    .header-link {
+      &:nth-child(2) {
+        margin-left: 20px;
+      }
+    }
+    .header-title {
+      color: $c-white;
+    }
+  }
+}
