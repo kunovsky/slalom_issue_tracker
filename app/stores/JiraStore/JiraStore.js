@@ -14,6 +14,18 @@ class JiraStore extends EventEmmiter {
 
   constructor() {
     super();
+    this._model = {};
+  }
+
+  getJiraData() {
+    return [
+    {title: 'Defect 1'},
+    {title: 'Defect 2'},
+    {title: 'Defect 3'},
+    {title: 'Defect 4'},
+    {title: 'Defect 5'},
+    {title: 'Defect 6'},
+    ];
   }
 
   addErrorListener(listener) {
