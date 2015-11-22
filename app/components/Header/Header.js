@@ -11,11 +11,9 @@ export default class Header extends React.Component {
   render() {
     return (<div className="header-component-container">
       <div className="row header-row">
-        <div className="columns small-7">
-          <a href="/#" >
+        <h1 className="columns small-12">
             <span className="header-title">{this.state.messages['global.site_title']}</span>
-          </a>
-        </div>
+        </h1>
       </div>
     </div>);
   }

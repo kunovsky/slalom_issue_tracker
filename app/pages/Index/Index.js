@@ -3,6 +3,7 @@ import _ from "lodash";
 import AppActionCreator from '../../actions/AppActionCreator';
 import Graph from './components/Graph/Graph';
 import GeneralProjectInfo from './components/GeneralProjectInfo/GeneralProjectInfo';
+import Stats from './components/Stats/Stats';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import LoadingWave from '../../components/LoadingWave/LoadingWave';
@@ -60,6 +61,9 @@ export default class Index extends React.Component {
               </div>
               <div className="columns small-3">
                 <GeneralProjectInfo model={this.state.model} />
+              </div>
+              <div className="columns small-9 end">
+                <Stats model={this.state.model} />
               </div>
             </div>
           }

@@ -13,7 +13,6 @@ export default class GeneralProjectInfo extends React.Component {
   }
 
   render() {
-    console.log(this.props.model.currentProject);    
     return (<div className="general-project-info-component">
       {this._createGeneralProjectInfo()}
     </div>);
