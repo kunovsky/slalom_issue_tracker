@@ -1,6 +1,6 @@
 .header-component-container {
   height: 45px; width: 100%;
-  background-color: $c-charcoal;
+  background-color: $c-main-blue;
   color: $c-white;
   font-size: 20px;
   .header-row {
@@ -9,7 +9,7 @@
       color: inherit;
       cursor: pointer;
       &:hover {
-        color: $c-main-blue;
+        color: $c-black;
       }
     }
     .header-link {
@@ -19,6 +19,7 @@
     }
     .header-title {
       color: $c-white;
+      font-weight: bold;
     }
   }
 }

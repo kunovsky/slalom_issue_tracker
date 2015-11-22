@@ -1,16 +1,26 @@
 import AppDispatcher from '../dispatcher/AppDispatcher';
 
 import {
-  ATTEMPT_LOGIN
+  FETCH_DEFECTS,
+  SET_CURRENT_PROJECT,
+  SET_DEFECT_OVERLAY,
+  REMOVE_DEFECT_OVERLAY
 }
 from '../constants/AppConstants';
 
 export default {
 
-  attemptLogin(credentials) {
+  fetchDefects() {
     AppDispatcher.dispatch({
-      credentials: credentials,
-      actionType: ATTEMPT_LOGIN
+      actionType: FETCH_DEFECTS
+    });
+  },
+
+  setCurrentProject(name, colorNumber) {
+    AppDispatcher.dispatch({
+      actionType: SET_CURRENT_PROJECT,
+      name: name,
+      colorNumber: colorNumber
     });
   }
 };

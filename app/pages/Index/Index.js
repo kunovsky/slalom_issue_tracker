@@ -1,7 +1,8 @@
 import React from 'react';
 import _ from "lodash";
-import { Line as LineChart } from "react-chartjs";
 import AppActionCreator from '../../actions/AppActionCreator';
+import Graph from './components/Graph/Graph';
+import GeneralProjectInfo from './components/GeneralProjectInfo/GeneralProjectInfo';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import LoadingWave from '../../components/LoadingWave/LoadingWave';
@@ -17,61 +18,84 @@ export default class Index extends React.Component {
   }
 
   componentWillMount() {
-
+    JiraStore.addChangeListener(this._updateMode.bind(this));
+    JiraStore.addErrorListener(this._displayFetchError.bind(this));
+    AppActionCreator.fetchDefects();
   }
 
   componentWillUnmount() {
-   
+   JiraStore.removeChangeListener(this._updateMode.bind(this));
+   JiraStore.removeErrorListener(this._displayFetchError.bind(this));
   }
 
+  // TODO - set inverval to ask to update data ever minute
+
   render() {
-    const chartData = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-        {
-            label: "My First dataset",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-            label: "My Second dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [28, 48, 40, 19, 86, 27, 90]
-        }
-    ]
-};
-    const chartOptions = {};
     return (<div className="index-component-container">
       <Header />
+      {
+        this.state.currentMessage ?
+        <h3> {this.state.currentMessage} </h3>
+        :
+        null
+      }
+
       <div className="row">
         <div className="columns small-12 text-center">
           { _.isEmpty(this.state.model) ?
-            <LoadingWave />
+            <div>
+              <h3 className="loading-message"> {this._cms('loading')} </h3>
+              <LoadingWave />
+            </div>
             :
-            <LineChart data={chartData} options={chartOptions}/>
+            <div>
+              <div className={"current-project-title"}> 
+                <span className={"label radius color" + this.state.model.colorNumber}>
+                  {this.state.model.currentProject}
+                </span>
+              </div>
+              <div className="columns small-9">
+                <Graph model={this.state.currentGraphData}
+                       colorNumber={this.state.model.colorNumber}/>
+              </div>
+              <div className="columns small-3">
+                <GeneralProjectInfo model={this.state.model} />
+              </div>
+            </div>
           }
         </div>
       </div>
       <Footer />
+
     </div>);
   }
 
   _getInitialState() {
     return {
       messages: messages(),
-      model: JiraStore.getJiraData()
+      model: JiraStore.getJiraData(),
+      currentGraphData: JiraStore.getCurrentGraphData(),
+      currentMessage: ''
     }
   }
+
+  _updateMode() {
+    this.setState({
+      model: JiraStore.getJiraData(),
+      currentGraphData: JiraStore.getCurrentGraphData()
+    });
+  }
+
+  _displayFetchError() {
+    this.setState({
+      currentMessage: this._cms('error')
+    });
+  }
+
+  _cms(message) {
+    return this.state.messages['index.' + message];
+  }
+
 }
 
 Index.contextTypes = {

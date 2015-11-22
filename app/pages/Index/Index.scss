@@ -1,3 +1,43 @@
 .index-component-container {
-  
+  .loading-message, .current-project-title  {
+    margin-top: 30px;
+    font-weight: bold;
+  }
+  .current-project-title {
+    margin-bottom: 10px;
+    span {
+      cursor: pointer;
+      min-width: 240px;
+      font-weight: bold;
+      font-size: 18px;
+      margin: 5px 0px;
+      padding: 10px;
+    }
+  }
+  .graph-component-container {
+    .no-defects {
+      font-weight: bold;
+      font-size: 25px;
+      margin-top: 160px;
+    }
+    .time-interval-controll {
+      cursor: pointer;
+      margin-right: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      &.active {
+        background-color: $c-success-green;
+      }
+    }
+  }
+  .general-project-info-component {
+    .project-name {
+      cursor: pointer;
+      min-width: 240px;
+      font-weight: bold;
+      font-size: 18px;
+      margin: 5px 0px;
+      padding: 10px;
+    }
+  }
 }
