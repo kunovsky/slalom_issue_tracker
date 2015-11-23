@@ -1,0 +1,97 @@
+.index-component-container {
+  .loading-message, .current-project-title, .fetch-error  {
+    margin-top: 30px;
+    font-weight: bold;
+  }
+  .fetch-error {
+    margin: 60px 0px;
+    color: $c-red;
+  }
+  .current-project-title-label {
+    margin-top: 25px;
+    h3 {
+      font-weight: bold;
+      margin-bottom: 0px;
+    }
+    .down-arrow {
+      font-size: 25px;
+    }
+  }
+  .current-project-title {
+    margin-bottom: 10px;
+    span {
+      cursor: pointer;
+      min-width: 240px;
+      font-weight: bold;
+      font-size: 18px;
+      margin: 5px 0px;
+      padding: 10px;
+    }
+  }
+  .graph-component-container {
+    .no-defects {
+      font-weight: bold;
+      font-size: 25px;
+      margin-top: 30px;
+    }
+    .time-interval-controll {
+      cursor: pointer;
+      margin-right: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      &.active {
+        background-color: $c-success-green;
+      }
+    }
+    .legend-title {
+      margin-top: -12px;
+    }
+    .legend-label {
+      margin: 0px 5px 10px 0px;
+    }
+  }
+  .general-project-info-component {
+    .project-name {
+      cursor: pointer;
+      min-width: 240px;
+      font-weight: bold;
+      font-size: 18px;
+      margin: 5px 0px;
+      margin-right: 10px;
+      padding: 10px;
+    }
+  }
+  .stats-component {
+    .stat-container {
+      margin: 10px 0px;
+      .stat-component {
+        border: 1px solid $c-gray-3;
+        border-radius: 5px;
+        .stat-title {
+          font-weight: bold;
+        }
+      } 
+    }
+  }
+  .defect-types-component-wrapper {
+    margin: 10px 0px 30px;
+    background-color: $c-gray;
+    border-radius: 10px;
+    .defect-types-component {
+      .defect-type-label {
+        padding:  10px;
+        font-weight: bold;
+        font-size: 20px;
+      }
+      .priority-data-column {
+        margin-bottom: 10px;
+        .priority-label {
+          font-size: 16px;
+          &.overlay {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

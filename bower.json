@@ -1,0 +1,6 @@
+{
+  "name": "slalom_issue_tracker",
+  "dependencies": {
+    "foundation": "^5.5.2"
+  }
+}
