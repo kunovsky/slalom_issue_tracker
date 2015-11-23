@@ -21,6 +21,6 @@ export default class Header extends React.Component {
   _getInitialState() {
     return {
       messages: messages()
-    }
+    };
   }
 }

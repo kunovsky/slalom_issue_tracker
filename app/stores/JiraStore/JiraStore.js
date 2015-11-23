@@ -52,7 +52,7 @@ class JiraStore extends EventEmmiter {
     deferred.done((response) => {
       this._model = response;
       const name = _.get(_.first(response.projects), 'name', '');
-      this._setCurrentProject(name);      
+      this._setCurrentProject(name);
     });
 
     deferred.fail(() => {
@@ -63,7 +63,7 @@ class JiraStore extends EventEmmiter {
   _updateSlalomResourceInformation(formData) {
     let deferred = updateSlalomResourceInformation(formData);
 
-    deferred.done((response) => {
+    deferred.done(() => {
       this._fetchDefects(true);
     });
 

@@ -12,6 +12,12 @@ export default class DefectTypes extends React.Component {
     this.state = this._getInitialState();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.model.name !== nextProps.model.name) {
+      this.setState({selected: []});
+    }
+  }
+
   render() {
     return (<div className="defect-types-component text-left">
       {
@@ -30,7 +36,7 @@ export default class DefectTypes extends React.Component {
     return {
       messages: messages(),
       selected: []
-    }
+    };
   }
 
   _cms(message) {
@@ -38,16 +44,17 @@ export default class DefectTypes extends React.Component {
   }
 
   _createDefetTypeHeaders() {
-    return DefectLabels.map((label) => {
-      return <div className="columns small-4 defect-type-label">
+    return DefectLabels.map((label, idx) => {
+      return (<div className="columns small-4 defect-type-label"
+                   key={idx}>
         {label.title}
-      </div>
+      </div>);
     });
   }
 
   _createDefectTypeInfo() {
     return this.props.model.priority_data.map((priority, idx) => {
-      return <div key={idx}>
+      return (<div key={idx}>
         <div className="columns small-4 priority-data-column">
           <span className={'label radius priority-label color' + idx}>
             {_.trunc(priority.name, 12)}
@@ -58,18 +65,18 @@ export default class DefectTypes extends React.Component {
         </div>
         <div className="columns small-4 priority-data-column">
           <span className={'label radius priority-label overlay color' + idx}
-                onClick={this._overlayGraph.bind(this, priority.name, idx)}> 
+                onClick={this._overlayGraph.bind(this, priority.name, idx)}>
             {this._cms('overlay')}
           </span>
         </div>
-      </div>
+      </div>);
     });
   }
 
   _overlayGraph(name, idx) {
-    let selected = _.clone(this.state.selected)
+    let selected = _.clone(this.state.selected);
 
-    if (this.state.selected.indexOf(name) < 0){
+    if (selected.indexOf(name) < 0){
       selected.push(name);
       AppActionCreator.setDefectOverlay(name, idx);
     }
@@ -83,7 +90,7 @@ export default class DefectTypes extends React.Component {
   }
 }
 
-DefectTypes.contextTypes = {
+DefectTypes.propTypes = {
   model: React.PropTypes.object.isRequired,
   colorNumber: React.PropTypes.number.isRequired
 };

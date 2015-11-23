@@ -8,10 +8,10 @@ export function fetchDefects(force) {
     headers: {
       'Accept': 'application/json'
     }
-  }
-  
+  };
+
   if (force === true) {
-    options.data = {force: true}
+    options.data = {force: true};
   }
 
   return $.ajax(options);

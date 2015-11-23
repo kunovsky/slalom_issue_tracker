@@ -7,10 +7,6 @@
     padding-top: 7px;
     .header-link, .header-title {
       color: inherit;
-      cursor: pointer;
-      &:hover {
-        color: $c-black;
-      }
     }
     .header-link {
       &:nth-child(2) {

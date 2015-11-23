@@ -1,3 +1,5 @@
+/*eslint camelcase:0*/
+
 import React from 'react';
 import _ from 'lodash';
 import AppActionCreator from '../../../../actions/AppActionCreator';
@@ -31,14 +33,13 @@ export default class ResourceInformation extends React.Component {
         <h5> {this._cms('need_info')} </h5>
         <form onSubmit={this._updateSlalomResourceInformation.bind(this)}>
           {this._buildFormInputsFromModel()}
-          <button className={"button round color" + this.props.colorNumber}
+          <button className={'button round color' + this.props.colorNumber}
                   type="submit">
             {this._cms('update')}
           </button>
         </form>
       </div>
     }
-      
     </div>);
   }
 
@@ -47,7 +48,7 @@ export default class ResourceInformation extends React.Component {
       messages: messages(),
       loading: false,
       resources: this._createResourceObjects(this.props.model)
-    }
+    };
   }
 
   _cms(message) {
@@ -56,7 +57,7 @@ export default class ResourceInformation extends React.Component {
 
   _buildFormInputsFromModel() {
     return this.props.model.map((email, idx) => {
-      return <div className="resource-input"
+      return (<div className="resource-input"
                   key={idx}>
         <div className="columns small-12 medium-4">
           <label>
@@ -71,9 +72,9 @@ export default class ResourceInformation extends React.Component {
           <label>
             {this._cms('name')}
           </label>
-          <input name={'name'+ idx}
+          <input name={'name' + idx}
                  type="text"
-                 ref={'name'+ idx}
+                 ref={'name' + idx}
                  onChange={this._updateModel.bind(this, idx, 'name')}
                  required />
         </div>
@@ -88,7 +89,7 @@ export default class ResourceInformation extends React.Component {
                  onChange={this._updateModel.bind(this, idx, 'hourly_rate')}
                  required/>
         </div>
-      </div>
+      </div>);
     });
   }
 
@@ -121,7 +122,7 @@ export default class ResourceInformation extends React.Component {
     let resourceObjects = {};
 
     _.each(props, (email, idx) => {
-      resourceObjects[idx] = {email: email}
+      resourceObjects[idx] = {email: email};
     });
     return resourceObjects;
   }
@@ -140,7 +141,7 @@ export default class ResourceInformation extends React.Component {
   }
 }
 
-ResourceInformation.contextTypes = {
+ResourceInformation.propTypes = {
   model: React.PropTypes.object.isRequired,
   colorNumber: React.PropTypes.number.isRequired
 };

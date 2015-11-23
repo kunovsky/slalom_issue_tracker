@@ -1,7 +1,7 @@
 export function chartDataOptions() {
   return {
-    pointStrokeColor: "#fff",
-    pointHighlightFill: "#fff",
+    pointStrokeColor: '#fff',
+    pointHighlightFill: '#fff',
     fillColor0: 'rgba(0, 140, 186, 0.1)',
     mainColor0: 'rgba(0, 140, 186, 1)',
     fillColor1: 'rgba(67, 172, 106, 0.1)',

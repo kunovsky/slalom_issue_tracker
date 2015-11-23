@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from "lodash";
+import _ from 'lodash';
 import AppActionCreator from '../../actions/AppActionCreator';
 import Graph from './components/Graph/Graph';
 import GeneralProjectInfo from './components/GeneralProjectInfo/GeneralProjectInfo';
@@ -57,8 +57,8 @@ export default class Index extends React.Component {
                   <h3> {this._cms('current_project')} </h3>
                   <div className="fa fa-arrow-down down-arrow"> </div>
                 </div>
-                <div className={"current-project-title"}> 
-                  <span className={"label radius color" + this.state.model.colorNumber}>
+                <div className={"current-project-title"}>
+                  <span className={'label radius color' + this.state.model.colorNumber}>
                     {this.state.model.currentProject}
                   </span>
                 </div>
@@ -97,8 +97,8 @@ export default class Index extends React.Component {
       model: JiraStore.getJiraData(),
       currentProject: JiraStore.getCurrentProject(),
       currentMessage: '',
-      loading: false,
-    }
+      loading: false
+    };
   }
 
   _updateMode() {

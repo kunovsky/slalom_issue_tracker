@@ -26,7 +26,7 @@ export default class Stats extends React.Component {
   _getInitialState() {
     return {
       messages: messages()
-    }
+    };
   }
 
   _cms(message) {
@@ -34,17 +34,17 @@ export default class Stats extends React.Component {
   }
 
   _buildStats() {
-    return DefectStatTypes.map((type) => {
-     return <div className="columns small-6 medium-3 stat-container">
+    return DefectStatTypes.map((type, idx) => {
+     return (<div className="columns small-6 medium-3 stat-container"
+                  key={idx}>
       <Stat model={_.get(this.props.model, type.key)}
             prefix={type.prefix}
-            title={type.title}/> 
-    </div>
+            title={type.title}/>
+    </div>);
     });
   }
 }
 
-Stats.contextTypes = {
+Stats.propTypes = {
   model: React.PropTypes.object.isRequired
 };
-

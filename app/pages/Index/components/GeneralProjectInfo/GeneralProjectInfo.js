@@ -21,7 +21,7 @@ export default class GeneralProjectInfo extends React.Component {
   _getInitialState() {
     return {
       messages: messages()
-    }
+    };
   }
 
   _cms(message) {
@@ -31,15 +31,15 @@ export default class GeneralProjectInfo extends React.Component {
   _createGeneralProjectInfo() {
     return this.props.model.projects.map((project, idx) => {
 
-      const classNames = cx("project-name label radius color" + idx,{
+      const classNames = cx('project-name label radius color' + idx, {
         'active': this.props.model.currentProject === project.name
       });
 
-      return <div className={classNames}
+      return (<div className={classNames}
                   onClick={this._showDataForProject.bind(this, project.name, idx)}
                   key={idx}>
-        {_.trunc(project.name, 21)} - {project.defects_count} 
-      </div>
+        {_.trunc(project.name, 21)} - {project.defects_count}
+      </div>);
     });
   }
 
@@ -48,7 +48,7 @@ export default class GeneralProjectInfo extends React.Component {
   }
 }
 
-GeneralProjectInfo.contextTypes = {
+GeneralProjectInfo.propTypes = {
   model: React.PropTypes.object.isRequired
 };
 
