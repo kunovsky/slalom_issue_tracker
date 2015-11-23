@@ -30,6 +30,7 @@ export function chartDataOptions() {
 export function chartConfigOptions() {
   return {
     responsive: true,
-    pointHitDetectionRadius: 5
+    pointHitDetectionRadius: 5,
+    maintainAspectRatio: true
   };
 }

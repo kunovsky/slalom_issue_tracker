@@ -1,17 +1,17 @@
 import EventEmmiter from 'events';
 import _ from 'lodash';
 import AppDispatcher from '../../dispatcher/AppDispatcher';
-import {
-  fetchDefects
-} from '../../api/Defects/DefectsApi';
+import { fetchDefects } from '../../api/Defects/DefectsApi';
+import { updateSlalomResourceInformation } from '../../api/Resources/SlalomResourcesApi';
 
 import {
   FETCH_DEFECTS,
   ON_CHANGE,
-  ERROR_EVENT,
+  ON_ERROR,
   SET_CURRENT_PROJECT,
   SET_DEFECT_OVERLAY,
-  REMOVE_DEFECT_OVERLAY
+  REMOVE_DEFECT_OVERLAY,
+  UPDATE_SLALOM_RESOURCE_INFORMATION
 }
 from '../../constants/AppConstants';
 
@@ -26,7 +26,7 @@ class JiraStore extends EventEmmiter {
    return this._model;
   }
 
-  getCurrentGraphData() {
+  getCurrentProject() {
     return _.findWhere(this._model.projects, {name: this._model.currentProject});
   }
 
@@ -39,15 +39,15 @@ class JiraStore extends EventEmmiter {
   }
 
   addErrorListener(listener) {
-    this.on(ERROR_EVENT, listener);
+    this.on(ON_ERROR, listener);
   }
 
   removeErrorListener(listener) {
-    this.removeListener(ERROR_EVENT, listener);
+    this.removeListener(ON_ERROR, listener);
   }
 
-  _fetchDefects() {
-    const deferred = fetchDefects();
+  _fetchDefects(force=false) {
+    const deferred = fetchDefects(force);
 
     deferred.done((response) => {
       this._model = response;
@@ -60,23 +60,37 @@ class JiraStore extends EventEmmiter {
     });
   }
 
-  _formatResponseData(response) {
-    this._model.generalProjectInfo = this._generateGeneralProjectInfo(response);
+  _updateSlalomResourceInformation(formData) {
+    let deferred = updateSlalomResourceInformation(formData);
+
+    deferred.done((response) => {
+      this._fetchDefects(true);
+    });
+
+    deferred.fail(() => {
+      this.emit(ON_ERROR);
+    });
   }
 
   _setCurrentProject(name, colorNumber=0) {
     this._model.currentProject = name;
     this._model.colorNumber = colorNumber;
-    this._model.defectOverlays = null;
+    this._model.defectOverlays = [];
     this.emit(ON_CHANGE);
   }
 
-  _setDefectOverlay(name) {
-
+  _setDefectOverlay(name, colorNumber) {
+    this._model.defectOverlays.push({
+      name: name, colorNumber: colorNumber
+    });
+    this.emit(ON_CHANGE);
   }
 
   _removeDefectOverlay(name) {
-
+    let defectOverlays = _.clone(this._model.defectOverlays);
+    _.remove(defectOverlays, (o) => o.name === name);
+    this._model.defectOverlays = defectOverlays;
+    this.emit(ON_CHANGE);
   }
 }
 
@@ -91,10 +105,13 @@ AppDispatcher.register((action) => {
       store._setCurrentProject(action.name, action.colorNumber);
       break;
     case SET_DEFECT_OVERLAY:
-      store._setDefectOverlay(action.name);
+      store._setDefectOverlay(action.name, action.colorNumber);
       break;
     case REMOVE_DEFECT_OVERLAY:
       store._removeDefectOverlay(action.name);
+      break;
+    case UPDATE_SLALOM_RESOURCE_INFORMATION:
+      store._updateSlalomResourceInformation(action.formData);
       break;
     }
 });

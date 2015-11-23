@@ -37,6 +37,7 @@
     "normalize.css": "^3.0.3",
     "react": "^0.13.3",
     "react-chartjs": "^0.6.0",
+    "react-count-to": "^0.4.0",
     "react-loader": "^1.2.0",
     "react-router": "^0.13.3",
     "url-loader": "^0.5.6"

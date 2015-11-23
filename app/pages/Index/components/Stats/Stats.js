@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-// import Stat from './components/Stat/Stat';
+import Stat from './components/Stat/Stat';
 import { messages } from '../../../../config/messages';
 import { DefectStatTypes } from '../../../../constants/enums/DefectStatTypes';
 
@@ -12,8 +12,14 @@ export default class Stats extends React.Component {
   }
 
   render() {
+    const defectsCount = _.get(this.props.model, 'defects_count');
     return (<div className="stats-component">
-      {this._buildStats()}
+      {
+        defectsCount === 0 ?
+        null
+        :
+        this._buildStats()
+      }
     </div>);
   }
 
@@ -29,7 +35,11 @@ export default class Stats extends React.Component {
 
   _buildStats() {
     return DefectStatTypes.map((type) => {
-     return <div className="columns small-3"> {type.title} </div>
+     return <div className="columns small-6 medium-3 stat-container">
+      <Stat model={_.get(this.props.model, type.key)}
+            prefix={type.prefix}
+            title={type.title}/> 
+    </div>
     });
   }
 }

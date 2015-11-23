@@ -19,6 +19,7 @@ export default class Graph extends React.Component {
   }
 
   render() {
+    console.log(this.props.defectOverlays);
     return (<div className="graph-component-container">
       {this.props.model.defects_count === 0 ?
         <div className="no-defects text-center"> {this._cms('no_defects')} </div>
@@ -65,7 +66,7 @@ export default class Graph extends React.Component {
   _createChartDataFromModel() {
     return {
       labels: this._createLabels(),
-      datasets: [this._createDataSets()]
+      datasets: this._createDataSets()
     };
   }
 
@@ -80,16 +81,23 @@ export default class Graph extends React.Component {
   _createDataSets() {
     const fill = this.state.chartDataOptions['fillColor' + this.props.colorNumber];
     const main = this.state.chartDataOptions['mainColor' + this.props.colorNumber];
-      return {
-      label: this.props.model.name,
-      fillColor: fill,
-      strokeColor: main,
-      pointColor: main,
-      pointStrokeColor: this.state.chartDataOptions.pointStrokeColor,
-      pointHighlightFill: this.state.chartDataOptions.pointHighlightFill,
-      pointHighlightStroke: main,
-      data: this._createDataPoints()
-    };
+    const overlays = this.props.defectOverlays;
+    let dataSets = [
+      {
+        label: this.props.model.name,
+        fillColor: fill,
+        strokeColor: main,
+        pointColor: main,
+        pointStrokeColor: this.state.chartDataOptions.pointStrokeColor,
+        pointHighlightFill: this.state.chartDataOptions.pointHighlightFill,
+        pointHighlightStroke: main,
+        data: this._createDataPoints()
+      }
+    ]
+    if (!_.isEmpty(overlays)) {
+      // TODO: hook up the overlays
+    }
+    return dataSets;
   }
 
   _createDataPoints() {
